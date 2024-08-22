@@ -1,5 +1,4 @@
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
 
 def upload = [
         user       : 'yarolegovich',
@@ -38,23 +37,4 @@ afterEvaluate {
 
     Properties localProps = new Properties()
     localProps.load(project.rootProject.file('local.properties').newDataInputStream())
-
-    bintray {
-        user = upload.user
-        key = localProps.getProperty('bintray.api_key')
-        publications = ['LibRelease']
-        configurations = ['archives']
-        pkg {
-            name = upload.uploadName
-            repo = upload.repository
-            userOrg = upload.userOrg
-            licenses = upload.licences
-            publish = true
-            dryRun = false
-            version {
-                name = upload.version
-                desc = upload.description
-            }
-        }
-    }
 }
